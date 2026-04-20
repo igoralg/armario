@@ -216,10 +216,13 @@ app.get("/comando", (req, res) => {
     return res.status(403).send("Acesso negado");
   }
 
-  res.json({ abrir: comandoAbrir });
-  comandoAbrir = null;
-});
+  const resposta = comandoAbrir;
 
+  comandoAbrir = null;
+
+  res.setHeader("Content-Type", "application/json");
+  res.send(JSON.stringify({ abrir: resposta }));
+});
 // =========================
 // ADMIN
 // =========================
