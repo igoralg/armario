@@ -135,7 +135,7 @@ app.post("/acao", async (req, res) => {
       [box]
     );
 
-    comandoAbrir = "A" + box; // 👈 DISPARA O ESP32
+    comandoAbrir = box; // 👈 DISPARA O ESP32
 
     if (!check.rows.length) {
       return res.status(404).json({ erro: "Armário não existe" });
