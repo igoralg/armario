@@ -7,6 +7,8 @@ const app = express();
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "lavaadmin";
 
+let comandoAbrir = null;
+
 app.use(express.json());
 
 app.use(session({
@@ -56,6 +58,16 @@ app.get("/migrate", async (req, res) => {
     console.error(err);
     res.status(500).send(err.message); // 👈 MOSTRA O ERRO REAL
   }
+});
+
+
+let comandoAbrir = false;
+
+app.get("/comando", (req, res) => {
+  res.json({ abrir: comandoAbrir });
+
+  // depois de ler, reseta
+  comandoAbrir = false;
 });
 
 // =========================
@@ -132,6 +144,8 @@ app.post("/acao", async (req, res) => {
       [box]
     );
 
+    comandoAbrir = "A" + box; // 👈 DISPARA O ESP32
+
     if (!check.rows.length) {
       return res.status(404).json({ erro: "Armário não existe" });
     }
@@ -202,6 +216,22 @@ function auth(req, res, next) {
   }
   next();
 }
+
+app.get("/comando/:armario", (req, res) => {
+
+  if (req.query.token !== "123") {
+    return res.status(403).send("Acesso negado");
+  }
+
+  const armario = req.params.armario;
+
+  if (comandoAbrir === armario) {
+    comandoAbrir = null;
+    return res.json({ abrir: true });
+  }
+
+  res.json({ abrir: false });
+});
 
 // =========================
 // ADMIN
