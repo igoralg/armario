@@ -7,7 +7,6 @@ const app = express();
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "lavaadmin";
 
-let comandoAbrir = null;
 
 app.use(express.json());
 
@@ -209,20 +208,16 @@ function auth(req, res, next) {
   next();
 }
 
-app.get("/comando/:armario", (req, res) => {
+let comandoAbrir = null;
+
+app.get("/comando", (req, res) => {
 
   if (req.query.token !== "123") {
     return res.status(403).send("Acesso negado");
   }
 
-  const armario = req.params.armario;
-
-  if (comandoAbrir === armario) {
-    comandoAbrir = null;
-    return res.json({ abrir: true });
-  }
-
-  res.json({ abrir: false });
+  res.json({ abrir: comandoAbrir });
+  comandoAbrir = null;
 });
 
 // =========================
