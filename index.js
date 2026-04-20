@@ -28,6 +28,17 @@ const db = new Pool({
 // =========================
 app.get("/migrate", async (req, res) => {
   try {
+
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS armarios (
+        id SERIAL PRIMARY KEY,
+        status TEXT DEFAULT 'livre',
+        nome TEXT,
+        telefone TEXT,
+        data_entrega TIMESTAMP
+      );
+    `);
+
     await db.query(`
       CREATE TABLE IF NOT EXISTS historico_armarios (
         id SERIAL PRIMARY KEY,
@@ -40,9 +51,10 @@ app.get("/migrate", async (req, res) => {
     `);
 
     res.send("Migração ok");
+
   } catch (err) {
     console.error(err);
-    res.status(500).send("Erro");
+    res.status(500).send(err.message); // 👈 MOSTRA O ERRO REAL
   }
 });
 
