@@ -61,14 +61,6 @@ app.get("/migrate", async (req, res) => {
 });
 
 
-let comandoAbrir = false;
-
-app.get("/comando", (req, res) => {
-  res.json({ abrir: comandoAbrir });
-
-  // depois de ler, reseta
-  comandoAbrir = false;
-});
 
 // =========================
 // STATUS
