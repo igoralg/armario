@@ -4,113 +4,138 @@
   <title>Lavanderia</title>
   <style>
 
+body {
+  font-family: Arial;
+  text-align: center;
+  margin-top: 20px;
+  background: #E8F7FA;
+}
 
-    #topo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #333;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-    }
+h1 {
+  color: #3AA9B9;
+}
 
-    #topo button {
-      width: 45%;
-      padding: 10px;
-      font-size: 16px;
-      background: #555;
-      color: white;
-    }
+button {
+  display: block;
+  width: 80%;
+  margin: 15px auto;
+  padding: 18px;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
-    body {
-      font-family: Arial;
-      text-align: center;
-      margin-top: 120px;
-    }
+/* BOTÃO ARMÁRIO */
+.armario {
+  font-size: 20px;
+  padding: 20px;
+  color: white;
+}
 
-    button {
-      display: block;
-      width: 80%;
-      margin: 15px auto;
-      padding: 18px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
+/* DISPONÍVEL (AZUL) */
+.disponivel {
+  background: #3AA9B9;
+}
 
-    .depositar { background:#3498db; color:white; }
-    .retirar { background:#2ecc71; color:white; }
+.disponivel:hover {
+  background: #2F8E9C;
+  transform: scale(1.03);
+}
 
-    .box { color:white; font-weight:bold; }
+/* OCUPADO (LARANJA) */
+.ocupado {
+  background: #F4A261;
+}
 
-    .box:disabled {
-      background:#bdc3c7 !important;
-      opacity:0.7;
-    }
+.ocupado:hover {
+  background: #E76F51;
+  transform: scale(1.03);
+}
 
-    .modal {
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,0.6);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-    .btn-confirmar {
-      background: #2ecc71;
-      color: white;
-    }
+/* TEXTO STATUS */
+.status-text {
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
 
-    .btn-cancelar {
-      background: #e74c3c;
-      color: white;
-    }
-    .indisponivel {
-      background: #bdc3c7;
-      color: #666;
-      cursor: not-allowed;
-    }
-    .modal-content input {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    .modal-content {
-      display: flex;
-      flex-direction: column;
-      background:white;
-      padding:20px;
-      border-radius:10px;
-      width:80%;
-    }
+/* NOME DO CLIENTE */
+.nome {
+  font-size: 13px;
+  opacity: 0.9;
+}
 
-    .hidden { display:none; }
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+}
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.btn-confirmar {
+  background: #3AA9B9;
+  color: white;
+}
+
+.btn-confirmar:hover {
+  background: #2F8E9C;
+}
+
+.btn-cancelar {
+  background: #E76F51;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background: #d65a3f;
+}
+
+.hidden {
+  display: none;
+}
+
+.rodape {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.rodape img {
+  width: 120px;
+  opacity: 0.9;
+}
   </style>
 </head>
 
 <body>
 
-<div id="topo">
-  <button onclick="irHome()">🏠 Home</button>
-  <button onclick="voltar()">⬅ Voltar</button>
-</div>
+<h1>Armários</h1>
 
-<h1>Lavanderia</h1>
-
-<div id="menu">
-  <button class="depositar" onclick="abrir('depositar')">Depositar</button>
-  <button class="retirar" onclick="abrir('retirar')">Retirar</button>
-</div>
-
-<div id="tela" style="display:none;">
+<div id="tela">
   <h2 id="titulo"></h2>
   <div id="lista"></div>
 </div>
@@ -131,4 +156,8 @@
 <script src="script.js"></script>
 
 </body>
+<div class="rodape">
+  <img src="logo.png" alt="Logo Lava Lava">
+</div>
+
 </html>

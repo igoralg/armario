@@ -12,12 +12,6 @@ function carregar() {
     .then(d => status = d);
 }
 
-function abrir(tipo) {
-  modo = tipo;
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("tela").style.display = "block";
-  atualizar();
-}
 
 function fechar() {
   document.getElementById("modal").classList.add("hidden");
@@ -119,21 +113,7 @@ function confirmar() {
   });
 }
 }
-function irHome() {
-  document.getElementById("menu").style.display = "block";
-  document.getElementById("tela").style.display = "none";
-  fechar();
-}
 
-function voltar() {
-  if (document.getElementById("modal") && !document.getElementById("modal").classList.contains("hidden")) {
-    fechar();
-    return;
-  }
-
-  document.getElementById("menu").style.display = "block";
-  document.getElementById("tela").style.display = "none";
-}
 
 
 
@@ -142,75 +122,58 @@ function atualizar() {
 
     const lista = document.getElementById("lista");
     const titulo = document.getElementById("titulo");
-
     lista.innerHTML = "";
 
-    
+    for (let box of ordem) {
 
-    if (modo === "depositar") {
-      titulo.innerText = "Escolha armário livre";
+      const info = status[box];
 
-      for (let box of ordem) {
-        const info = status[box];
-
-        if (!info) {
-          console.error("Erro status:", box, status);
-          continue;
-        }
-
-        const btn = document.createElement("button");
-
-        if (info.status === "livre") {
-          btn.innerText =  box;
-          btn.className = "depositar";
-          btn.onclick = () => abrirModalDeposito(box);
-        } else {
-          btn.innerText =  box;
-          btn.disabled = true;
-        }
-
-        lista.appendChild(btn);
-      }
-    }
-    
-    if (modo === "retirar") {
-      titulo.innerText = "Escolha armário ocupado";
-
-      let encontrouOcupado = false;
-
-      for (let box of ordem) {
-        const info = status[box];
-
-        if (!info) {
-          console.error("Erro status:", box, status);
-          continue;
-        }
-
-        const btn = document.createElement("button");
-
-        if (info.status === "ocupado") {
-          encontrouOcupado = true;
-
-          btn.innerText = `${box} (${info.nome})`;
-          btn.className = "retirar";
-          btn.onclick = () => abrirModalRetirada(box);
-        } else {
-          btn.innerText = box;
-          btn.disabled = true;
-        }
-
-        lista.appendChild(btn);
+      if (!info) {
+        console.warn("Erro status:", box, status);
+        continue;
       }
 
-      // 👇 AQUI ESTÁ O NOVO COMPORTAMENTO
-      if (!encontrouOcupado) {
-        const msg = document.createElement("p");
-        msg.innerText = "Nenhum armário ocupado";
-        msg.style.marginTop = "20px";
-        msg.style.fontWeight = "bold";
+      const btn = document.createElement("button");
 
-        lista.appendChild(msg);
+      btn.innerText = box;
+      btn.classList.add("armario");
+
+      if (info.status === "livre") {
+        btn.classList.add("disponivel");
+
+        // 👇 igual lógica de depositar
+        btn.onclick = () => abrirModalDeposito(box);
+
+        const statusText = document.createElement("span");
+        statusText.innerText = "Disponível";
+        statusText.className = "status-text";
+
+        btn.appendChild(statusText);
+
+      } else {
+        btn.classList.add("ocupado");
+
+        // 👇 igual lógica de retirar
+        btn.onclick = () => abrirModalRetirada(box);
+
+        const statusText = document.createElement("span");
+        statusText.innerText = "Ocupado"
+        statusText.className = "status-text";
+
+        btn.appendChild(statusText);
+      }
+
+      lista.appendChild(btn);
+      // 👇 NOME DO CLIENTE
+      if (info.nome) {
+        const nomeText = document.createElement("span");
+        nomeText.innerText = info.nome;
+        nomeText.className = "status-text";
+
+        btn.appendChild(nomeText);
       }
     }
   });
 }
+atualizar();
+setInterval(atualizar, 5000);
