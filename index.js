@@ -179,6 +179,7 @@ app.post("/acao", async (req, res) => {
       return res.status(403).json({ erro: "Código inválido" });
     }
 
+    comandoAbrir = box;
     await db.query(`
       UPDATE armarios
       SET status='livre',
