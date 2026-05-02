@@ -15,10 +15,10 @@ function carregar() {
 
 function fechar() {
   document.getElementById("modal").classList.add("hidden");
-
+  
   window.scrollTo({
     top: 0,
-    behavior: "smooth"
+    behavior: "instant" // ou "smooth"
   });
 }
 
