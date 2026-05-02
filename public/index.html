@@ -4,27 +4,39 @@
   <title>Lavanderia</title>
   <style>
 
+
+
 body {
   font-family: Arial;
   text-align: center;
-  margin-top: 20px;
+  margin: 0; /* 👈 remove espaçamento estranho */
+  padding: 20px;
   background: #E8F7FA;
 }
+
+
 
 h1 {
   color: #3AA9B9;
 }
 
+
 button {
   display: block;
-  width: 80%;
+  width: 90%;
+  max-width: 400px; /* 👈 limite pra ficar bonito */
   margin: 15px auto;
-  padding: 18px;
+  padding: 20px;
   font-size: 18px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: 0.2s;
+}
+
+#tela {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /* BOTÃO ARMÁRIO */
@@ -156,8 +168,5 @@ button {
 <script src="script.js"></script>
 
 </body>
-<div class="rodape">
-  <img src="logo.png" alt="Logo Lava Lava">
-</div>
 
 </html>
