@@ -15,7 +15,7 @@ function carregar() {
 
 function fechar() {
   document.getElementById("modal").classList.add("hidden");
-  
+
   window.scrollTo({
     top: 0,
     behavior: "instant" // ou "smooth"
@@ -26,6 +26,16 @@ function abrirModalDeposito(box) {
   boxModal = box;
   modoModal = "depositar";
   document.getElementById("modal").classList.remove("hidden");
+
+  boxModal = box;
+  modoModal = "depositar";
+  document.getElementById("modal").classList.remove("hidden");
+
+
+  document.getElementById("labelNome").style.display = "block";
+  document.getElementById("labelTelefone").style.display = "block";
+  document.getElementById("labelCodigo").style.display = "none";
+
 
   document.getElementById("nome").style.display = "block";
   document.getElementById("telefone").style.display = "block";
@@ -42,6 +52,10 @@ function abrirModalRetirada(box) {
   document.getElementById("nome").style.display = "none";
   document.getElementById("telefone").style.display = "none";
   document.getElementById("codigo").style.display = "block";
+
+  document.getElementById("labelNome").style.display = "none";
+  document.getElementById("labelTelefone").style.display = "none";
+  document.getElementById("labelCodigo").style.display = "block";
 
   document.getElementById("modalTitulo").innerText = "Retirar";
 }
