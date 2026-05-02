@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lavanderia</title>
   <style>
 
@@ -27,12 +28,12 @@ button {
   width: 90%;
   max-width: 600px; /* 👈 limite pra ficar bonito */
   margin: 15px auto;
-  padding: 24px;
-  font-size: 22px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: 0.2s;
+  padding: 5vw; /* 👈 escala com tela */
+  font-size: 5vw; /* 👈 texto cresce no mobile */
 }
 
 #tela {
@@ -96,6 +97,9 @@ button {
   box-sizing: border-box;
 }
 
+.modal-content input {
+  
+}
 
 .modal-content {
   display: flex;
@@ -107,6 +111,7 @@ button {
   width: 100%;
   max-width: 600px; /* 👈 mesmo limite dos botões */
   box-sizing: border-box;
+  font-size: 16px; /* 👈 evita zoom automático no iPhone */
 }
 
 
