@@ -81,6 +81,8 @@ button {
 }
 
 /* MODAL */
+
+
 .modal {
   position: fixed;
   top: 0; left: 0;
@@ -88,8 +90,10 @@ button {
   background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* 👈 aqui resolve */
+  padding-top: 40px; /* 👈 distância do topo */
 }
+
 
 .modal-content {
   display: flex;
