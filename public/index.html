@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lavanderia</title>
+  <style>
+
+
+
+body {
+  font-family: Arial;
+  text-align: center;
+  margin: 0; /* 👈 remove espaçamento estranho */
+  padding: 20px;
+  background: #E8F7FA;
+  overflow-x: hidden;
+}
+
+
+
+h1 {
+  color: #3AA9B9;
+}
+
+
+button {
+  display: block;
+  width: 90%;
+  max-width: 600px; /* 👈 limite pra ficar bonito */
+  margin: 15px auto;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 5vw; /* 👈 escala com tela */
+  font-size: 5vw; /* 👈 texto cresce no mobile */
+}
+
+#tela {
+  max-width: 600px;
+  margin: 0 auto;
+  
+}
+
+/* BOTÃO ARMÁRIO */
+.armario {
+  font-size: 20px;
+  padding: 20px;
+  color: white;
+}
+
+/* DISPONÍVEL (AZUL) */
+.disponivel {
+  background: #3AA9B9;
+}
+
+.disponivel:hover {
+  background: #2F8E9C;
+  transform: scale(1.03);
+}
+
+/* OCUPADO (LARANJA) */
+.ocupado {
+  background: #F4A261;
+}
+
+.ocupado:hover {
+  background: #E76F51;
+  transform: scale(1.03);
+}
+
+/* TEXTO STATUS */
+.status-text {
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
+
+/* NOME DO CLIENTE */
+.nome {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  padding: 20px; /* 👈 evita encostar na lateral */
+  box-sizing: border-box;
+}
+
+.modal-content input {
+  
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px; /* 👈 mesmo limite dos botões */
+  box-sizing: border-box;
+  font-size: 16px; /* 👈 evita zoom automático no iPhone */
+}
+
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.btn-confirmar {
+  background: #3AA9B9;
+  color: white;
+}
+
+.btn-confirmar:hover {
+  background: #2F8E9C;
+}
+
+.btn-cancelar {
+  background: #E76F51;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background: #d65a3f;
+}
+
+.hidden {
+  display: none;
+}
+
+.rodape {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.rodape img {
+  width: 120px;
+  opacity: 0.9;
+}
+  </style>
+</head>
+
+<body>
+
+<h1>Armários</h1>
+
+<div id="tela">
+  <h2 id="titulo"></h2>
+  <div id="lista"></div>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h2 id="modalTitulo"></h2>
+    
+    <label id="labelNome" for="nome">Nome</label>
+    <input id="nome" placeholder="Nome" type="text">
+
+    <label id="labelTelefone" for="telefone">Telefone</label>
+    <input id="telefone" placeholder="Telefone" type="tel">
+
+    <label id="labelCodigo" for="codigo">Código (últimos 4 dígitos do seu telefone)</label>
+    <input id="codigo" placeholder="Últimos 4 dígitos" type="number">
+
+    <button class="btn-confirmar" onclick="confirmar()">Confirmar</button>
+    <button class="btn-cancelar" onclick="fechar()">Cancelar</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
