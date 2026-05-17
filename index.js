@@ -1,5 +1,6 @@
 const express = require("express");
 const { Pool } = require("pg");
+const axios = require("axios");
 
 const session = require("express-session");
 const app = express();
@@ -9,6 +10,23 @@ const ADMIN_PASS = "lavaadmin";
 
 
 app.use(express.json());
+
+app.get("/teste-telegram", async (req, res) => {
+  try {
+    const r = await axios.post(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
+      {
+        chat_id: process.env.TELEGRAM_CHAT_ID,
+        text: "teste render funcionando"
+      }
+    );
+
+    res.json(r.data);
+
+  } catch (err) {
+    res.status(500).json(err.response?.data || err.message);
+  }
+});
 
 app.use(session({
   secret: "lavanderia-super-secreta",
@@ -23,6 +41,31 @@ const db = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
+
+//enviar mensagem pelo telegram
+async function enviarTelegram(msg) {
+
+  const token = process.env.TELEGRAM_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  try {
+
+    await axios.post(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        chat_id: chatId,
+        text: msg
+      }
+    );
+
+    console.log("Telegram enviado");
+
+  } catch (err) {
+
+    console.error("Erro Telegram:", err.message);
+  }
+}
+
 
 // =========================
 // MIGRAÇÃO
@@ -152,6 +195,12 @@ app.post("/acao", async (req, res) => {
           data_entrega=NOW()
       WHERE id=$3
     `, [nome, telefone, box]);
+      await enviarTelegram(
+        `📦 NOVO DEPÓSITO\n\n` +
+        `Armário: ${box}\n` +
+        `Cliente: ${nome}\n` +
+        `Telefone: ${telefone}`
+      );
     }
 
     
@@ -188,6 +237,11 @@ app.post("/acao", async (req, res) => {
           data_entrega=NULL
       WHERE id=$1
     `, [box]);
+
+    await enviarTelegram(
+      `🔓 RETIRADA REALIZADA\n\n` +
+      `Armário: ${box}`
+    );
 
     await db.query(`
       UPDATE historico_armarios
@@ -385,5 +439,30 @@ app.post("/logout", (req, res) => {
 // =========================
 // START
 // =========================
+
+
+app.get("/teste-telegram", async (req, res) => {
+
+  try {
+
+    const resposta = await axios.post(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
+      {
+        chat_id: process.env.TELEGRAM_CHAT_ID,
+        text: "teste render funcionando"
+      }
+    );
+
+    res.json(resposta.data);
+
+  } catch (err) {
+
+    console.error(err.response?.data || err.message);
+
+    res.status(500).json(
+      err.response?.data || { erro: err.message }
+    );
+  }
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Rodando"));
